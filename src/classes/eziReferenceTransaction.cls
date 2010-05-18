@@ -12,6 +12,8 @@ global class eziReferenceTransaction {
 	public static eziReferenceTransactionResponse Submit(String TransactionReference) {
 
 		// TODO
+		
+		return null;
 
 	}
 

@@ -19,7 +19,7 @@ global class eziTransactionLine {
 	global String Tax {get; set;}
 
 	// constructor
-	global eziOrderLine()
+	global eziTransactionLine()
 	{
 		// TODO
 	}

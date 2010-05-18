@@ -1,7 +1,7 @@
 global class eziAddress {
 
 	// (Required) customer contact name
-	global String Name {get; set;}
+	public String Name {get; set;}
 
 	// (Optional) customer contact company
 	global String Company {get; set;}
@@ -43,7 +43,19 @@ global class eziAddress {
 	// constructor
 	global eziAddress()
 	{
-		// TODO
+		this.Name = '';
+		this.Company = '';
+		this.Email = '';
+		this.Phone = '';
+		this.MobilePhone = '';
+		this.Fax = '';
+		this.Address1 = '';
+		this.Address2 = '';
+		this.Address3 = '';
+		this.Place = '';
+		this.Division = '';
+		this.PostalCode = '';
+		this.CountryCode = '';
 	}
 
 
