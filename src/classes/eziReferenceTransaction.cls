@@ -165,24 +165,54 @@ public class eziReferenceTransaction {
 			
 			AtomFeed = d.getRootElement();
 		}
+		
+        Boolean Success;
+        Integer OrderID;
+        String OrderNumber;
+        String GatewayReference;
+        String BankReference;
+        List<eziTransactionError> Errors = new List<eziTransactionError>();		
 
 		String AtomNS = 'http://www.w3.org/2005/Atom';
         String eziNS = 'http://api.ezimerchant.com/schemas/2009/';
 
 		Dom.XmlNode AtomEntry = AtomFeed.getChildElement('entry', AtomNS);
 		Dom.XmlNode AtomLink = AtomEntry.getChildElement('link', AtomNS);
+		
+		Dom.XmlNode eziSuccess = AtomEntry.getChildElement('success', eziNS);
+		Dom.XmlNode eziOrderID = AtomEntry.getChildElement('orderid', eziNS);
+		Dom.XmlNode eziOrderNumber = AtomEntry.getChildElement('ordernumber', eziNS);
+		Dom.XmlNode eziGatewayReference = AtomEntry.getChildElement('gatewayreference', eziNS);
+		Dom.XmlNode eziErrors = AtomEntry.getChildElement('errors', eziNS);
 
-        Boolean Success;
-        Integer OrderID;
-        String OrderNumber;
-        String GatewayReference;
-        String BankReference;
-        List<eziTransactionError> Errors = new List<eziTransactionError>();
+		if(eziErrors != null)
+		{
+			for(Dom.XmlNode x : eziErrors.getChildElements())
+			{
+				eziTransactionError Error = new eziTransactionError();
+				
+				Error.Code = x.getAttribute('code', null);
+				Error.Message = x.getText();		
+				
+				Errors.add(Error);
+			}
+		}
+		
+		if(eziSuccess != null)
+			Success = eziSuccess.getText() == '1';
+		else
+			Success = false;
+			
+		if(eziOrderID != null)			
+			OrderID = Integer.valueOf(eziOrderID.getText());
+			
+		if(eziOrderNumber != null)
+			OrderNumber = eziOrderNumber.getText();
+			
+		if(eziGatewayReference != null)
+			GatewayReference = eziGatewayReference.getText();        
 
-		eziReferenceTransactionResponse TxResponse = new eziReferenceTransactionResponse(Success, OrderID, OrderNumber, GatewayReference, BankReference, Errors);
-
-		return TxResponse;
-
+		return new eziReferenceTransactionResponse(Success, OrderID, OrderNumber, GatewayReference, BankReference, Errors);
 	}
 
 	public eziReferenceTransaction(String MerchantID, String ApiKey, String ApiPassword)
