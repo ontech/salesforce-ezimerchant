@@ -14,7 +14,7 @@ public class eziAddress {
 
 	// (Optional) customer contact mobile
 	public String MobilePhone {get; set;}
-
+ 
 	// (Optional) customer contact fax
 	public String Fax {get; set;}
 
