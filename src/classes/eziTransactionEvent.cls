@@ -1,8 +1,8 @@
 global class eziTransactionEvent {
 
-	webservice static void transactionEvent(String json)
+	webservice static void transactionEvent(String xml)
 	{
-		System.debug(json);
+		System.debug(xml);
 	}
 
 }

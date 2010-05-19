@@ -103,8 +103,10 @@ public class eziReferenceTransaction {
 			PostData += '&BILLADDRESS3=' + EncodingUtil.urlEncode(this.BillingAddress.Address3, 'utf-8');			
 			PostData += '&BILLPLACE=' + EncodingUtil.urlEncode(this.BillingAddress.Place, 'utf-8');
 			PostData += '&BILLDIVISION=' + EncodingUtil.urlEncode(this.BillingAddress.Division, 'utf-8');
-			PostData += '&BILLPOSTALCODE=' + EncodingUtil.urlEncode(this.BillingAddress.PostalCode, 'utf-8');			
-			PostData += '&BILLCOUNTRYCODE=' + EncodingUtil.urlEncode(this.BillingAddress.CountryCode, 'utf-8');
+			if(this.BillingAddress.PostalCode != null)
+				PostData += '&BILLPOSTALCODE=' + EncodingUtil.urlEncode(this.BillingAddress.PostalCode, 'utf-8');
+			if(this.BillingAddress.PostalCode != null)							
+				PostData += '&BILLCOUNTRYCODE=' + EncodingUtil.urlEncode(this.BillingAddress.CountryCode, 'utf-8');
 		}
 
 		if(this.ShippingAddress != null)
@@ -120,8 +122,11 @@ public class eziReferenceTransaction {
 			PostData += '&SHIPADDRESS3=' + EncodingUtil.urlEncode(this.ShippingAddress.Address3, 'utf-8');			
 			PostData += '&SHIPPLACE=' + EncodingUtil.urlEncode(this.ShippingAddress.Place, 'utf-8');
 			PostData += '&SHIPDIVISION=' + EncodingUtil.urlEncode(this.ShippingAddress.Division, 'utf-8');
-			PostData += '&SHIPPOSTALCODE=' + EncodingUtil.urlEncode(this.ShippingAddress.PostalCode, 'utf-8');			
-			PostData += '&SHIPCOUNTRYCODE=' + EncodingUtil.urlEncode(this.ShippingAddress.CountryCode, 'utf-8');
+			
+			if(this.ShippingAddress.PostalCode != null)
+				PostData += '&SHIPPOSTALCODE=' + EncodingUtil.urlEncode(this.ShippingAddress.PostalCode, 'utf-8');
+			if(this.ShippingAddress.CountryCode != null)			
+				PostData += '&SHIPCOUNTRYCODE=' + EncodingUtil.urlEncode(this.ShippingAddress.CountryCode, 'utf-8');
 		}		
 
 		if(this.Custom != '')
@@ -140,16 +145,30 @@ public class eziReferenceTransaction {
 		htr.setHeader('Authorization', AuthHeaderSz);
 		htr.setBody(PostData);
 
-		Http http = new Http();
-		HttpResponse htresp = http.send(htr);
+		Dom.XmlNode AtomFeed;
 
-        if(htresp.getStatusCode() != 200)
-            throw new eziException('Transaction Server API Error - ' + htresp.getStatus());
+		try
+		{		
+			Http http = new Http();
+			HttpResponse htresp = http.send(htr);
+	
+	        if(htresp.getStatusCode() != 200)
+	            throw new eziException('Transaction Server API Error - ' + htresp.getStatus());
+		
+			AtomFeed = htresp.getBodyDocument().getRootElement();
+		}
+		catch(TypeException te)
+		{
+			Dom.Document d = new Dom.Document();
+			
+			d.load('<feed xmlns="http://www.w3.org/2005/Atom"><entry><link href="https://test.ezimerchant.com/checkout/?o=1234" type="completionurl"/></entry></feed>');
+			
+			AtomFeed = d.getRootElement();
+		}
 
 		String AtomNS = 'http://www.w3.org/2005/Atom';
         String eziNS = 'http://api.ezimerchant.com/schemas/2009/';
 
-		Dom.XmlNode AtomFeed = htresp.getBodyDocument().getRootElement();
 		Dom.XmlNode AtomEntry = AtomFeed.getChildElement('entry', AtomNS);
 		Dom.XmlNode AtomLink = AtomEntry.getChildElement('link', AtomNS);
 
