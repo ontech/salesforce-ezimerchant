@@ -12,7 +12,7 @@ An ezimerchant account
 Having Issues?
 ==============
 
-You can grab us at support@ezimerchant.com please also see [http://www.ezimerchant.com/](http://www.ezimerchant.com/)
+You can grab us at support@ezimerchant.com please also see [http://www.ezimerchant.com/](http://www.ezimerchant.com/) sign up for a free [Shopping Cart](http://www.ezimerchant.com/)
 
 
 Installation
