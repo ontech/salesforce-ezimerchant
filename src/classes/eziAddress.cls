@@ -62,7 +62,33 @@ global class eziAddress {
 	// populate attributes of this object based on a key/value string dictionary
 	public void populate(Map<String, String> attributeMap) {
 
-		// TODO
-
+        for (String fieldName : attributeMap.keySet()){
+            if(fieldName.equalsIgnoreCase("name"))
+                this.Name = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("company"))
+                this.Company = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("email"))
+                this.Email = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("phone"))
+                this.Phone = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("mobilephone"))
+                this.MobilePhone = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("fax"))
+                this.Fax= attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("address1"))
+                this.Address1 = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("address2"))
+                this.Address2 = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("address3"))
+                this.Address3 = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("place"))
+                this.Place = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("division"))
+                this.Division = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("postalcode"))
+                this.PostalCode = attributeMap.get(fieldName);
+            else if(fieldName.equalsIgnoreCase("countrycode"))
+                this.CountryCode = attributeMap.get(fieldName);
+        }
 	}
 }

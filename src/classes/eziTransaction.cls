@@ -65,9 +65,9 @@ global class eziTransaction {
 	// (Optional) custom field passed through api's and notifications for use by callers
 	public String Custom {get; set;}
 	
-	String MerchantID;
-	String ApiKey;
-	String ApiPassword;
+	private String MerchantID;
+	private String ApiKey;
+	private String ApiPassword;
 
 	// create the transaction and get the completion url
 	public eziTransactionResponse Submit() {
@@ -77,13 +77,26 @@ global class eziTransaction {
 		htr.setMethod('POST');
 
 		String PostData = 'ACTION=CreateOrder';
+
+        for(eziTransactionLine l : this.Lines)
+        {
+            if(l.ProductName == '' || l.ProductName == null)
+                throw new Exception('Invalid Order Line - No Product Name');
+        }
 	
 		Integer idx = 0;
 		for(eziTransactionLine l : this.Lines)
 		{
 			PostData += '&PRODUCTCODE(' + idx + ')=' + EncodingUtil.urlEncode(l.ProductCode, 'utf-8');
 			PostData += '&PRODUCTNAME(' + idx + ')=' + EncodingUtil.urlEncode(l.ProductName, 'utf-8');
-			PostData += '&PRODUCTPRICE(' + idx + ')=' + EncodingUtil.urlEncode(l.Price.toPlainString(), 'utf-8');
+            PostData += '&PRODUCTQUANTITY(' + idx + ')=' + EncodingUtil.urlEncode(l.Quantity, 'utf-8');
+
+            if(l.Price != null)
+			    PostData += '&PRODUCTPRICE(' + idx + ')=' + EncodingUtil.urlEncode(l.Price.toPlainString(), 'utf-8');
+            if(1.ListPrice != null)
+                PostData += '&PRODUCTLISTPRICE(' + idx + ')=' + EncodingUtil.urlEncode(l.ListPrice.toPlainString(), 'utf-8');
+            if(l.Tax != '')
+                PostData += '&PRODUCTTAX(' + idx + ')=' + EncodingUtil.urlEncode(l.Tax, 'utf-8');
 		
 			idx++;			
 		}
@@ -146,6 +159,9 @@ global class eziTransaction {
 		
 		Http http = new Http();
 		HttpResponse htresp = http.send(htr);
+
+        if(htresp.getStatusCode() != 200)
+            throw new Exception('Transaction Server API Error - ' + htresp.getStatus());
 		
 		String AtomNS = 'http://www.w3.org/2005/Atom';
 		
