@@ -9,6 +9,11 @@ Requirements
 A salesforce environment
 An ezimerchant account
 
+Having Issues?
+==============
+
+You can grab us at support@ezimerchant.com
+
 
 Installation
 ============
