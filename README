@@ -1,6 +1,0 @@
-
-ezimerchant Checkout integration with salesforce.com.
-Allows you to take payments via the ezimerchant ecommerce service from within SalesForce apps.
-This allows simplified and unified PayPal and credit card handling (amongst other payment types) in an easy to use
-package.
-
