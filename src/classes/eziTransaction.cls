@@ -81,7 +81,7 @@ global class eziTransaction {
         for(eziTransactionLine l : this.Lines)
         {
             if(l.ProductName == '' || l.ProductName == null)
-                throw new Exception('Invalid Order Line - No Product Name');
+                throw new eziException('Invalid Order Line - No Product Name');
         }
 	
 		Integer idx = 0;
@@ -89,11 +89,11 @@ global class eziTransaction {
 		{
 			PostData += '&PRODUCTCODE(' + idx + ')=' + EncodingUtil.urlEncode(l.ProductCode, 'utf-8');
 			PostData += '&PRODUCTNAME(' + idx + ')=' + EncodingUtil.urlEncode(l.ProductName, 'utf-8');
-            PostData += '&PRODUCTQUANTITY(' + idx + ')=' + EncodingUtil.urlEncode(l.Quantity, 'utf-8');
+            PostData += '&PRODUCTQUANTITY(' + idx + ')=' + EncodingUtil.urlEncode(l.Quantity.toPlainString(), 'utf-8');
 
             if(l.Price != null)
 			    PostData += '&PRODUCTPRICE(' + idx + ')=' + EncodingUtil.urlEncode(l.Price.toPlainString(), 'utf-8');
-            if(1.ListPrice != null)
+            if(l.ListPrice != null)
                 PostData += '&PRODUCTLISTPRICE(' + idx + ')=' + EncodingUtil.urlEncode(l.ListPrice.toPlainString(), 'utf-8');
             if(l.Tax != '')
                 PostData += '&PRODUCTTAX(' + idx + ')=' + EncodingUtil.urlEncode(l.Tax, 'utf-8');
@@ -161,7 +161,7 @@ global class eziTransaction {
 		HttpResponse htresp = http.send(htr);
 
         if(htresp.getStatusCode() != 200)
-            throw new Exception('Transaction Server API Error - ' + htresp.getStatus());
+            throw new eziException('Transaction Server API Error - ' + htresp.getStatus());
 		
 		String AtomNS = 'http://www.w3.org/2005/Atom';
 		

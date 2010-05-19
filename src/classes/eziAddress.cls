@@ -1,47 +1,47 @@
-global class eziAddress {
+public class eziAddress {
 
 	// (Required) customer contact name
 	public String Name {get; set;}
 
 	// (Optional) customer contact company
-	global String Company {get; set;}
+	public String Company {get; set;}
 
 	// (Optional) customer contact email
-	global String Email {get; set;}
+	public String Email {get; set;}
 
 	// (Optional) customer contact phone
-	global String Phone {get; set;}
+	public String Phone {get; set;}
 
 	// (Optional) customer contact mobile
-	global String MobilePhone {get; set;}
+	public String MobilePhone {get; set;}
 
 	// (Optional) customer contact fax
-	global String Fax {get; set;}
+	public String Fax {get; set;}
 
 	// (Required) billing/shipping address1
-	global String Address1 {get; set;}
+	public String Address1 {get; set;}
 
 	// (Optional) billing/shipping address2
-	global String Address2 {get; set;}
+	public String Address2 {get; set;}
 
 	// (Optional) billing/shipping address3
-	global String Address3 {get; set;}
+	public String Address3 {get; set;}
 
 	// (Required) billing/shipping suburb/city/town
-	global String Place {get; set;}
+	public String Place {get; set;}
 
 	// (Required) billing/shipping state/territory/region
-	global String Division {get; set;}
+	public String Division {get; set;}
 
 	// (Required) billing/shipping post code/zipcode
-	global String PostalCode {get; set;}
+	public String PostalCode {get; set;}
 
 	// (Required) billing/shipping country code (ISO 3166)
-	global String CountryCode {get; set;}
+	public String CountryCode {get; set;}
 
 
 	// constructor
-	global eziAddress()
+	public eziAddress()
 	{
 		this.Name = '';
 		this.Company = '';
@@ -63,31 +63,31 @@ global class eziAddress {
 	public void populate(Map<String, String> attributeMap) {
 
         for (String fieldName : attributeMap.keySet()){
-            if(fieldName.equalsIgnoreCase("name"))
+            if(fieldName.equalsIgnoreCase('name'))
                 this.Name = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("company"))
+            else if(fieldName.equalsIgnoreCase('company'))
                 this.Company = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("email"))
+            else if(fieldName.equalsIgnoreCase('email'))
                 this.Email = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("phone"))
+            else if(fieldName.equalsIgnoreCase('phone'))
                 this.Phone = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("mobilephone"))
+            else if(fieldName.equalsIgnoreCase('mobilephone'))
                 this.MobilePhone = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("fax"))
+            else if(fieldName.equalsIgnoreCase('fax'))
                 this.Fax= attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("address1"))
+            else if(fieldName.equalsIgnoreCase('address1'))
                 this.Address1 = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("address2"))
+            else if(fieldName.equalsIgnoreCase('address2'))
                 this.Address2 = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("address3"))
+            else if(fieldName.equalsIgnoreCase('address3'))
                 this.Address3 = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("place"))
+            else if(fieldName.equalsIgnoreCase('place'))
                 this.Place = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("division"))
+            else if(fieldName.equalsIgnoreCase('division'))
                 this.Division = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("postalcode"))
+            else if(fieldName.equalsIgnoreCase('postalcode'))
                 this.PostalCode = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("countrycode"))
+            else if(fieldName.equalsIgnoreCase('countrycode'))
                 this.CountryCode = attributeMap.get(fieldName);
         }
 	}

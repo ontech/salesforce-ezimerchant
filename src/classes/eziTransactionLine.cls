@@ -19,7 +19,7 @@ public class eziTransactionLine {
 	public String Tax {get; set;}
 
 	// constructor
-	global eziTransactionLine()
+	public eziTransactionLine()
 	{
 		this.ProductCode = '';
         this.ProductName = null;
@@ -32,17 +32,17 @@ public class eziTransactionLine {
 	public void populate(Map<String, String> attributeMap) {
 
         for (String fieldName : attributeMap.keySet()){
-            if(fieldName.equalsIgnoreCase("productcode"))
+            if(fieldName.equalsIgnoreCase('productcode'))
                 this.ProductCode = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("productname"))
+            else if(fieldName.equalsIgnoreCase('productname'))
                 this.ProductName = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("quantity"))
-                this.Quantity = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("price"))
-                this.Price = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("listprice"))
-                this.ListPrice = attributeMap.get(fieldName);
-            else if(fieldName.equalsIgnoreCase("tax"))
+            else if(fieldName.equalsIgnoreCase('quantity'))
+                this.Quantity = Decimal.valueOf(attributeMap.get(fieldName));
+            else if(fieldName.equalsIgnoreCase('price'))
+                this.Price = Decimal.valueOf(attributeMap.get(fieldName));
+            else if(fieldName.equalsIgnoreCase('listprice'))
+                this.ListPrice = Decimal.valueOf(attributeMap.get(fieldName));
+            else if(fieldName.equalsIgnoreCase('tax'))
                 this.Tax = attributeMap.get(fieldName);
         }
 	}
